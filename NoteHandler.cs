@@ -174,6 +174,10 @@ namespace KeepNotes
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("No Data found...");
+            }
             
                 
 
