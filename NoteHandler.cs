@@ -92,12 +92,13 @@ namespace KeepNotes
                 }
                 while (reader.Read())
                 {
+                    Console.WriteLine(new string('.', 20));
                     Console.WriteLine($"Note ID: {reader.GetString(0)}");
                     Console.WriteLine($"Title: {reader.GetString(2)}");
                     Console.WriteLine($"Description: {reader.GetString(3)}");
                     Console.WriteLine($"Created At: {reader.GetString(1)}");
                     Console.WriteLine($"Updated At: {reader.GetString(4)}");
-                    Console.WriteLine();
+                    Console.WriteLine(new string('.', 20));
                 }
             }
 
@@ -148,19 +149,33 @@ namespace KeepNotes
         }
         public void ViewNote(NpgsqlConnection connection)
         {
+            bool flag = false;
+            int count = 0;
+            using (var cmd = new NpgsqlCommand("SELECT * FROM Notes", connection))
+            {
+                count = Convert.ToInt32(cmd.ExecuteScalar());
+                if(count > 0) { flag = true;}
+            }
+            if (flag)
+            {
                 using (var cmd = new NpgsqlCommand("SELECT * FROM Notes", connection))
                 using (var reader = cmd.ExecuteReader())
                 {
+                    Console.WriteLine();
+                    Console.WriteLine(new string('.', 20));
+                    Console.WriteLine($"Total Notes : {count}\n");
                     while (reader.Read())
                     {
-                        Console.WriteLine($"Note ID: {reader.GetString(0)}");
+                        Console.WriteLine($"\nNote ID: {reader.GetString(0)}");
                         Console.WriteLine($"Title: {reader.GetString(2)}");
                         Console.WriteLine($"Description: {reader.GetString(3)}");
                         Console.WriteLine($"Created At: {reader.GetString(1)}");
                         Console.WriteLine($"Updated At: {reader.GetString(4)}");
-                        Console.WriteLine();
                     }
                 }
+            }
+            
+                
 
             Console.WriteLine(new string('_', 20));
         }

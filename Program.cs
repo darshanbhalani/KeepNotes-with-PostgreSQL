@@ -39,7 +39,7 @@ namespace KeepNotes_with_PostgreSQL
                         Console.WriteLine("3 for Update Note");
                         Console.WriteLine("4 for View Note");
                         Console.WriteLine("0 for Exit");
-                        Console.WriteLine(new string('_', 20));
+                        Console.WriteLine(new string('.', 20));
                         Console.Write("=> ");
                         n = Convert.ToInt32(Console.ReadLine());
 
